@@ -1,0 +1,55 @@
+<?
+/*-- set in submission controller --*/
+$oSubmission = $mySub->oSubmission;
+$oMedia = $mySub->oMedia;
+?>
+
+<form enctype="multipart/form-data" action="/submit.php" method="POST">
+    <input type="hidden" name="mode" value="save_media">
+    <input type="hidden" name="submission_id" value="<?=$oSubmission->submission_id?>">
+    <input type="hidden" name="media_item_id"  value="<?=$oMedia->media_item_id?>">
+    <input type="hidden" name="MAX_FILE_SIZE" value="5000000000" />
+    
+    <table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+        <tr>
+            <td colspan="2" class="editheader">Transfer File or Provide URL:</td>
+        </tr>
+<?
+if($oMedia->file_ext){
+?>
+		<tr>
+			<td class="formname" nowrap>Attached File:</td>
+			<td class="formfield"><?=vAdmin::getFileInfo($oMedia)?></td>
+		</tr>
+<?
+}
+if(!$oMedia->document_url){
+?>
+		<tr>
+			<td class="formname">Upload file:</td>
+			<td class="formfield"><input name="fileupload" type="file" size="35"/></td>
+		</tr>
+<?
+}
+if(!$oMedia->file_ext){
+?>
+        <tr>
+            <td class="formname">Doc URL:</td>
+            <td class="formfield"><input type="text" name="document_url" value="<?=$oMedia->document_url?>" style="width: 375px; height: 20px;"/></td>
+        </tr>
+<?
+}
+?>
+		<tr>
+		   <td class="formname" nowrap>Transfer Type:</td>
+		   <td class="formfield"><table cellpadding="3" cellspacing="0" border="0"><?=vAdmin::getMediaTypes($oMedia,true,$oSubmission->is_publication)?></table></td>
+		</tr>
+		<tr>
+			<td class="formname">Notes:</td>
+			<td class="formfield"><textarea name="notes" class="textareab"><?=$oMedia->notes?></textarea></td>
+		</tr>
+		<tr>
+		  <td colspan="2" class="formfield" align="center"><input type="submit" class="submit" value="Save and continue" /></td>
+		</tr>
+	</table>
+</form>

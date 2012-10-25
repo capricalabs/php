@@ -1,0 +1,49 @@
+<?
+    if(count($myPM->papers)){
+        foreach($myPM->papers AS $oPaper){
+?>
+<table border="0" cellspacing="1" cellpadding="1" width="100%" class="summary-table">
+    <tr>
+        <td class="editheader" align="center"><span class="bold">Sub ID</span></td>
+        <td class="editheader" align="center"><span class="bold">Paper ID</span></td>
+        <td class="editheader" align="center"><span class="bold">Submitted</span></td>
+        <td class="editheader" align="center"><span class="bold">Published</span></td>
+        <td class="editheader" align="center"><span class="bold">Volume</span></td>
+        <td class="editheader" align="center"><span class="bold">First Page</span></td>
+        <td class="editheader" align="center" nowrap><span class="bold">Last Page</span></td>
+    </tr>
+    <tr>
+        <td class="formfield" align="center"><?=$oPaper->submission_id?></td>
+        <td class="formfield" align="center"><?=$oPaper->paper_id?></td>
+        <td class="formfield" align="center"><?=vAdmin::formatDate($oPaper->date_acknowledged,false,true)?></td>
+        <td class="formfield" align="center"><?=vAdmin::formatDate($oPaper->publish_date,false,true)?></td>
+        <td class="formfield" align="center"><?=$oPaper->volume?></td>
+        <td class="formfield" align="center"><?=$oPaper->start_page?></td>
+        <td class="formfield" align="center"><?=$oPaper->end_page?></td>
+    </tr>	
+    <tr>
+        <td class="formname">Title</strong></td>
+        <td class="formfield" colspan="6"><?=ucwords(strtolower($oPaper->title_published))?></td>
+    </tr>
+    <tr>
+        <td class="formname">Authors</strong></td>
+        <td class="formfield" colspan="6" width="100%"><?=vAdmin::drawAuthors($oPaper->authors)?></td>
+    </tr>
+    <tr>
+        <td class="formname">Files:</td>
+        <td class="formfield" colspan="6" width="100%"><?=vAdmin::drawFiles($oPaper->media)?></td>
+    </tr>
+    <tr>
+        <td colspan="7" align="center" class="formfield"><input type="submit" class="submit" name="submit" value="View Details" onClick="window.location='/publish.php?mode=publish_details&paper_id=<?=$oPaper->paper_id?>'; return false;"/></td>
+    </tr>
+        <?  } ?>
+</table>
+<?
+    } else {
+?>
+<table border="0" cellspacing="1" cellpadding="1" width="100%">
+    <tr>
+        <td class="formfield" colspan="7" align="center">No papers returned</td>
+    </tr>
+</table>
+<?  } ?>

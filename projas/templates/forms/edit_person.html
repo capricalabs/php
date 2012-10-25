@@ -1,0 +1,41 @@
+<?
+$oPerson = $myPerson->oTemp;
+?>
+<form name="person_form" action="/people.php" method="post">
+	<input type="hidden" name="people_id" value="<?=$oPerson->people_id?>" />
+	<input type="hidden" name="mode" value="update" />
+	<table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+		<tr>
+			<td class="editheader" colspan="2">Edit Person</td>
+		</tr>
+		<tr>
+			<td class="formname">First&nbsp;Name:</td>
+			<td class="formfield"><input type="text" name="first_name" maxlength="25" value="<?=$oPerson->first_name?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Last&nbsp;Name:</td>
+			<td class="formfield"><input type="text" name="last_name" maxlength="50" value="<?=$oPerson->last_name?>"  /></td>
+		</tr>
+		<tr>
+			<td class="formname">Primary E-mail:</td>
+			<td class="formfield"><input type="text" name="email1" value="<?=$oPerson->email1?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Secondary&nbsp;Email:</td>
+			<td class="formfield"><input type="text" name="email2" maxlength="100" value="<?=$oPerson->email2?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Phone&nbsp;Number:</td>
+			<td class="formfield"><input type="text" name="phone" maxlength="15" value="<?=$oPerson->phone?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Address:</td>
+			<td class="formfield"><textarea name="address" class="textarea" style="width: 300px;height:75px;"><?=$oPerson->address?></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="formfield" align="center">
+			<input type="button" class="submit" name="cancel" value="Cancel"  onclick="document.location='/people.php?mode=list';"/>&nbsp;
+			<input type="submit" class="submit" name="submit" value="Save" /></td>
+		</tr>
+	</table>
+</form>

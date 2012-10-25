@@ -1,0 +1,63 @@
+<?php
+/*-- set in paper manager --*/
+    if(is_object($myPM)){
+        $oSubmissions = $myPM->oTemp;
+    } else {
+        $browsing_submissions = true;
+    }
+?>
+
+<form name="process_papers" action="/paper.php" method="post">
+	<input type="hidden" name="submission_id" value="" />
+	<input type="hidden" name="mode" value="">
+	<input type="hidden" name="paper_id" value="">
+	<table border="0" cellspacing="1" cellpadding="1" width="100%" class="summary-table">
+<?
+    if(count($oSubmissions) && is_array($oSubmissions)){
+        foreach($oSubmissions AS $oSubmission){
+?>
+            <tr>
+                <td class="editheader" align="center"><span class="bold">Sub ID</span></td>
+                <td class="editheader" align="center"><span class="bold">Resub ID</span></td>
+                <td class="editheader" align="center"><span class="bold">Submitted</span></td>
+                <td class="editheader" align="center"><span class="bold">Authors</span></td>
+            </tr>
+            <tr>
+                <td class="formfield" align="center"><?=$oSubmission->submission_id?></td>
+                <td class="formfield" align="center"><?=$oSubmission->resub_paper_id?></td>
+                <td class="formfield" align="center"><?=vAdmin::formatDate($oSubmission->date_received,false,true)?></td>
+                <td class="formfield" align="center"><?=count($oSubmission->authors)?></td>
+            </tr>	
+            <tr>
+                <td class="formname">Title:</td>
+                <td class="formfield" colspan="3"><?=ucwords(strtolower($oSubmission->title))?></td>
+            </tr>
+            <tr>
+                <td class="formname">Authors:</td>
+                <td class="formfield" colspan="3"><?=vAdmin::drawAuthors($oSubmission->authors,true)?></td>
+            </tr>
+<? if(strlen($oSubmission->notes)){ ?>
+            <tr>
+                <td class="formname">Notes:</td>
+                <td class="formfield" colspan="3"><?=nl2br($oSubmission->notes)?></td>
+            </tr>
+<? } ?>
+            <tr>
+                <td class="formname">Abstract:</td>
+                <td class="formfield" colspan="3" width="100%"><?=nl2br($oSubmission->abstract)?></td>
+            </tr>
+            <tr>
+                <td class="formname">Files:</td>
+                <td class="formfield" colspan="3" width="100%"><?=vAdmin::drawFiles($oSubmission->media)?></td>
+            </tr>
+<? if(!$browsing_submissions){ ?>
+            <tr>
+                <td colspan="4" class="formfield" align="center"><input type="button" class="submit" name="submit1" value="Process" onclick="this.form.mode.value='accept_submission';this.form.submission_id.value='<?=$oSubmission->submission_id?>';this.form.paper_id.value='<?=$oSubmission->paper_id?>';this.form.submit();"/>&nbsp;
+                <input type="button" class="submit" name="submit2" value="Delete"  onclick="this.form.mode.value='reject_submission';this.form.submission_id.value='<?=$oSubmission->submission_id?>';this.form.submit();"/></td>
+            </tr>
+<?  }
+        }
+    }
+?>
+    </table>
+</form> 

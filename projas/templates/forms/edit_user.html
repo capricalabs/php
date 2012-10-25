@@ -1,0 +1,69 @@
+<?
+$oUser = $myUser->oTemp;
+?>
+<form name="edit_user" action="/users.php" method="post">
+    <input type="hidden" name="mode" value="update_user">
+	<input type="hidden" name="people_id" value="<?=$oUser->people_id?>" />
+	<input type="hidden" name="user_id" value="<?=$oUser->user_id?>" />
+	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="summary-table">
+		<tr>
+			<td class="editheader" colspan="2">Edit User</td>
+		</tr>
+		<tr>
+		   <td class="formname">Username:</td>
+		   <td class="formfield"><input type="text" name="username" maxlength="20" value="<?=$oUser->username?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">First&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="first_name" maxlength="25" value="<?=$oUser->first_name?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Middle&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="middle_name" maxlength="25" value="<?=$oUser->middle_name?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Last&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="last_name" maxlength="50" value="<?=$oUser->last_name?>" /></td>
+		</tr>
+<? if(!$oUser->user_id){ ?>
+		<tr>
+		   <td class="formname">Password:</td>
+		   <td class="formfield"><input type="password" name="password" maxlength="20" value="" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Confirm Password:</td>
+		   <td class="formfield"><input type="password" name="password_confirm" maxlength="20" value="" /></td>
+		</tr>
+<? } ?>
+		<tr>
+		   <td class="formname">Primary Email:</td>
+		   <td class="formfield"><input type="text" name="email1" maxlength="100" value="<?=$oUser->email1?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Secondary Email:</td>
+		   <td class="formfield"><input type="text" name="email2" maxlength="100" value="<?=$oUser->email2?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Phone:</td>
+		   <td class="formfield"><input type="text" name="phone" maxlength="15" value="<?=$oUser->phone?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Address:</td>
+		   <td class="formfield"><input type="text" name="address" maxlength="200" value="<?=$oUser->address?>" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">User Type:</td>
+		   <td class="formfield"><select name="user_type_id"><?=vAdmin::getUserTypes($oUser)?></select></td>
+		</tr>
+		<tr>
+		   <td class="formname">Active:</td>
+		   <td class="formfield"><input type="checkbox" name="active" value="1" <?=($oUser->active)?' checked':''?> class=""></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="formfield">
+			<input type="button" class="submit" name="cancel" value="Edit Password"  onclick="document.location='/users.php?mode=edit_password&user_id=<?=$oUser->user_id?>';"/>&nbsp;
+			<input type="button" class="submit" name="cancel" value="Cancel"  onclick="document.location='/users.php';"/>&nbsp;
+			<input type="submit" class="submit" name="submit" value="Save" /></td>
+		</tr>
+	</table>
+</form>

@@ -1,0 +1,48 @@
+<?
+$oEmail = $myPM->oEmail;
+$oPaper = $myPM->oTemp;
+$cancel_redirect = ($_POST['mode']=="publish_paper") ? "/publish.php?mode=publish_details&paper_id=$oEmail->paper_id" : "/paper.php?mode=paper_details&paper_id=$oEmail->paper_id"
+?>
+<form name="email_form" action="/paper.php" method="post">
+    <input type="hidden" name="mode" value="email_send">
+	<input type="hidden" name="paper_id" value="<?=$oEmail->paper_id?>"/>
+	<input type="hidden" name="user_id" value="<?=$oEmail->user_id?>" />
+	<input type="hidden" name="email_mode" value="<?=$oEmail->ref?>" />
+	<input type="hidden" name="reviewer_id" value="<?=$oEmail->reviewer_id?>" />
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+        <tr>
+            <td colspan="2" class="editheader">Send E-mail</td>
+        </tr>
+        <tr>
+            <td class="formname">To:</td>
+            <td class="formfield"><input type="text" name="to" value="<?=$oEmail->to?>" style="width: 250px; height: 20px;"/></td>
+        </tr>
+        <tr>
+            <td class="formname">Cc:</td>
+            <td class="formfield"><input type="text" name="cc" value="<?=$oEmail->cc?>" style="width: 250px; height: 20px;"/></td>
+        </tr>
+        <tr>
+            <td class="formname">From:</td>
+            <td class="formfield"><input type="text" name="from" value="<?=$oEmail->from?>" style="width: 250px; height: 20px;"/></td>
+        </tr>
+        <tr>
+            <td class="formname">Subject:</td>
+            <td class="formfield"><input type="text" name="subject" value="<?=$oEmail->subject?>" style="width: 250px; height: 20px;"/></td>
+        </tr>
+<? if($oEmail->has_attachments){ ?>
+        <tr>
+            <td class="formname">Files:</td>
+            <td class="formfield"><?=vAdmin::drawFiles($oPaper->media,true)?></td>
+        </tr>
+<? } ?>
+        <tr>
+            <td class="formname" valign="top">Body:</td>
+            <td class="formfield"><textarea name="body" columns="80" rows="15" class="textarea" style="width: 450px;height:200px;"><?=$oEmail->body?></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="formfield" align="center">
+            <input type="button" class="submit" name="cancel" value="Cancel"  onclick="document.location='<?=$cancel_redirect?>';" />&nbsp;
+            <input type="submit" class="submit" name="submit" value="<?=$oEmail->submit_text?>" /></td>
+        </tr>
+    </table>
+</form>

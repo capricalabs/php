@@ -1,0 +1,27 @@
+<form name="email_form" action="/other.php" method="post">
+    <input type="hidden" name="mode" value="email">
+    <input type="hidden" name="action" value="save">
+    <input type="hidden" name="email_id" value="<?=$oEmail->email_id?>">
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+        <tr>
+            <td colspan="2" class="editheader">Edit E-mail</td>
+        </tr>
+        <tr>
+            <td class="formname">Name:</td>
+            <td class="formfield"><span class="bold"><?=$oEmail->name?></span></td>
+        </tr>
+        <tr>
+            <td class="formname">Subject:</td>
+            <td class="formfield"><input type="text" name="subject" value="<?=$oEmail->subject?>" style="width: 450px; height: 20px;"/></td>
+        </tr>
+        <tr>
+            <td class="formname" valign="top">Body:</td>
+            <td class="formfield"><textarea name="body" columns="80" rows="15" class="textarea" style="width: 450px;height:250px;"><?=$oEmail->body?></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="formfield" align="center">
+            <input type="button" class="submit" name="cancel" value="Cancel"  onclick="document.location='/other.php?mode=email';" />&nbsp;
+            <input type="submit" class="submit" name="submit" value="Save" /></td>
+        </tr>
+    </table>
+</form>

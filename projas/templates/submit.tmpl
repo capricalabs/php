@@ -1,0 +1,37 @@
+<?
+/*
+ *
+ *
+ *
+ * @author		DWN<dogtowngeek@gmail.com>
+ * @copyright	(c) 2005 PROJAS
+ * @version		$Id: submit.tmpl,v 1.1.1.1 2006-02-08 02:24:33 dan Exp $
+ *
+ *
+ * @notes:
+ *
+ */
+
+$sTitle = 'Submit';
+ 
+include_once (PROJAS_TEMPLATES.'include/top.inc');
+?>
+<br>
+<table cellpadding="3" cellspacing="0" border="0" width="85%">
+    <tr>
+        <td align="center">
+<?  
+    echo ($mySub->pgtitle) ? '<span class="title">'.$mySub->pgtitle.'</span><br>' : '';
+    echo vAdmin::drawMessage($sErrorMessage, $sSuccessMessage, $sMessage);
+    
+        if($mySub->formInclude){
+            echo '<br>';
+            include_once PROJAS_TEMPLATES.'/forms/'.$mySub->formInclude.'.html' ;
+        }
+?>
+        </td>
+    </tr>
+</table>
+<?
+include_once (PROJAS_TEMPLATES.'include/bot.inc');
+?>

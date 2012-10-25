@@ -1,0 +1,56 @@
+<?
+$oPaper = $myPM->papers[0] ;
+?>
+
+<form action="/paper.php" method="post">
+	<input type="hidden" name="paper_id" value="<?=$oPaper->paper_id?>" />
+	<input type="hidden" name="mode" value="update_paper" />
+	<input type="hidden" name="submode" value="<?=$myPM->submode?>">
+	<table border="0" cellspacing="1" cellpadding="1" width="100%" class="summary-table">
+    <tr>
+        <td colspan="2" class="editheader">Paper&nbsp;<?=$myPM->papers[0]->paper_id?></td>
+    </tr>
+	<tr>
+		<td class="formname" width="30%">Title</td>
+		<td class="formfield"><input type="text" name="title" value="<?=br2nl($oPaper->title)?>" style="width: 375px; height: 20px;"/></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Prior Submission ID</td>
+		<td class="formfield"><input type="text" size="4" name="resub_paper_id" value="<?=$oPaper->resub_paper_id?>" /></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Date Submitted</td>
+		<td class="formfield"><?=vAdmin::getDateSelect('date_received',$oPaper->date_received)?></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Date Processed</td>
+		<td class="formfield"><?=vAdmin::getDateSelect('date_acknowledged',$oPaper->date_acknowledged)?></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Decision Date</td>
+		<td class="formfield"><?=vAdmin::getDateSelect('decision_date',$oPaper->decision_date)?></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Editor Assigned</td>
+		<td class="formfield"><?=vAdmin::getDateSelect('date_editor_assigned',$oPaper->date_editor_assigned)?></td>
+	</tr>
+	<tr>
+		<td class="formname" width="30%">Editor Confirmed</td>
+		<td class="formfield"><?=vAdmin::getDateSelect('date_editor_accepted',$oPaper->date_editor_accepted)?></td>
+	</tr>
+	<tr>
+		<td class="formname">Abstract</td>
+		<td class="formfield"><textarea name="abstract" class="textareab"><?=br2nl($oPaper->abstract)?></textarea></td>
+	</tr>
+	<tr>
+		<td class="formname">Notes</td>
+		<td class="formfield"><textarea name="notes" class="textareab"><?=br2nl($oPaper->notes)?></textarea></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center" class="formfield">
+		<input type="button" class="submit" name="cancel" value="Cancel" onclick="document.location='/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>';" />
+		<input type="submit" class="submit" name="submit" value="Save" />
+		</td>
+	</tr>
+</table>
+</form>

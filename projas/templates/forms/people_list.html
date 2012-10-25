@@ -1,0 +1,30 @@
+<?
+$oPeople = $myPerson->oTemp;
+?>
+<table cellpadding="1" cellspacing="1" border="0" width="100%" class="summary-table">
+    <tr>
+        <td class="editheader">ID</td>
+        <td class="editheader" nowrap><a href="people.php?mode=list&ob=first_name" class="paperlink">Name</a></td>
+        <td class="editheader"><a href="people.php?mode=list&ob=email1" class="paperlink">E-mail</a></td>
+        <td class="editheader"><a href="people.php?mode=list&ob=update_date" class="paperlink">Updated</a></td>
+        <td class="editheader">&nbsp;</td>
+        <td class="editheader">&nbsp;</td>
+    </tr>
+<?                    
+    $i=0;
+    foreach($oPeople as $result){
+        $i++;
+        $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+    <tr>
+        <td class="<?=$class?>"><?=$result[people_id]?></td>
+        <td class="<?=$class?>"><a href="/paper.php?mode=summary&type=7&people_id=<?=$result[people_id]?>"><?=vAdmin::padString($result[first_name], 14).' '.vAdmin::padString($result[last_name], 14)?></a></td>
+        <td class="<?=$class?>"><?=vAdmin::padString($result[email1], 30)?></td>
+        <td class="<?=$class?>"><?=vAdmin::formatDate($result[update_date],false,false,true)?></td>
+        <td class="<?=$class?>"><a href="people.php?mode=edit&people_id=<?=$result[people_id]?>" class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+        <td class="<?=$class?>"><a href="#" onClick="confirmAction('Permanently delete person from system?','people.php?mode=delete&people_id=<?=$result[people_id]?>');" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+    </tr>
+<?
+    }
+?>
+</table>

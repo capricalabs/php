@@ -1,0 +1,161 @@
+<?
+$oPaper = $myPM->papers[0]; 
+?>
+
+
+<form name="paper_detail_page" action="/publish.php" method="post">
+    <input type="hidden" name="mode" value="publish_paper">
+	<input type="hidden" name="paper_id" value="<?=$oPaper->paper_id?>" />
+
+<a name="details"></a>
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="5" class="formheader">Details</td>
+    </tr>
+    <tr>
+        <td class="formname">Publish ID</td>
+        <td class="formfield" width="100%" colspan="2"><?=$oPaper->published_paper_id?></td>
+		<td width="5" class="formfield"><a href="/publish.php?mode=publish_edit_paper&paper_id=<?=$oPaper->paper_id?>"  class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+		<td width="5" class="formfield"><a href="#" onClick="alert('Functionality still under review'); return false;" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+    </tr>
+	<tr>
+		<td class="formname" valign="top">Paper ID</td>
+		<td class="formfield" colspan="4"><a href="/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>"><?=$oPaper->paper_id?></a></td>
+	</tr>
+	<tr>
+		<td class="formname" valign="top">Title</td>
+		<td class="formfield" colspan="4"><?=$oPaper->title_published?></td>
+	</tr>
+	<tr>
+		<td class="formname">Processed</td>
+		<td class="formfield" colspan="4"><?=vAdmin::formatDate($oPaper->date_acknowledged,false, true)?></td>
+	</tr>
+	<tr>
+		<td class="formname">Published</td>
+		<td class="formfield" colspan="4"><?=vAdmin::formatDate($oPaper->publish_date,false, true)?></td>
+	</tr>
+	<tr>
+		<td class="formname" nowrap>Publish Info</td>
+		<td class="formfield" colspan="4"><?=vAdmin::drawPublishInfo($oPaper)?></td>
+	</tr>
+	<tr>
+		<td class="formname">Abstract</td>
+		<td class="formfield" colspan="4"><?=nl2br($oPaper->abstract_published)?></td>
+	</tr>
+<? if($oPaper->is_active){ ?>
+    <tr>
+        <td colspan="7" align="center" class="formfield"><input type="submit" class="submit" name="submit" value="Unpublish Paper" onClick="confirmAction('Are you absolutely sure you want to remove this paper from the live-production PROJAS Site?','/publish.php?mode=unpublish_paper&paper_id=<?=$oPaper->paper_id?>'); return false;"/></td>
+    </tr>
+<? } else { ?>
+    <tr>
+        <td colspan="7" align="center" class="formfield"><input type="submit" class="submit" name="submit" value="Publish Paper" onClick="confirmAction('Are you absolutely sure you want to publish this paper to the live-production PROJAS Site?','/publish.php?mode=publish_paper&paper_id=<?=$oPaper->paper_id?>'); return false;"/></td>
+    </tr>
+<? } ?>
+</form>
+</table>
+<!-- PAPER AUTHORS -->
+<form name="add_author" method="get" action="/publish.php">
+    <input type="hidden" name="mode" value="add_author">
+    <input type="hidden" name="paper_id" value="<?=$oPaper->paper_id?>">
+    <input type="hidden" name="is_published" value="1">
+<a name="authors"></a>
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="6" class="formheader">Authors</td>
+    </tr>
+    <tr>
+        <td class="formfield" align="center" colspan="5">first name:<input type="text" name="person_first_name" value="<?=$_POST[person_first_name]?>"/>&nbsp;last name:<input type="text" name="person_last_name" value="<?=$_POST[person_last_name]?>"/>&nbsp;<input type="submit" class="submit" id="add_reviewer" name="submit" value="Add Author" /></td>
+    </tr>
+</form>
+<?
+    if(count($oPaper->authors)){
+?>
+    <tr>
+        <td class="editheader" align="center"><span class="bold">ID</span></td>
+        <td class="editheader" align="center" nowrap><span class="bold">Published Name</span></td>
+        <td class="editheader" align="center"><span class="bold">E-mail</span></td>
+        <td class="editheader" align="center">&nbsp;</td>
+        <td class="editheader" align="center">&nbsp;</td>
+    </tr>
+<?
+        $i=0;
+        foreach($oPaper->authors AS $author){
+            $i++;
+            $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+    <tr>
+        <td class="<?=$class?>"><?=$author->author_id?></td>
+        <td class="<?=$class?>" nowrap width="50%" align="center"><?=$author->published_first_name?><?=($author->published_middle_name)?' '.$author->published_middle_name.' ':' '?><?=$author->published_last_name?></td>
+        <td class="<?=$class?>" width="50%" align="center"><?=$author->email1?></td>
+        <td class="<?=$class?>"><a href="/publish.php?mode=publish_edit_author&author_id=<?=$author->author_id?>&paper_id=<?=$oPaper->paper_id?>" class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+        <td class="<?=$class?>"><a href="#" onClick="confirmAction('Permanently delete author from system?','/publish.php?is_published=true&mode=delete_author&paper_id=<?=$oPaper->paper_id?>&author_id=<?=$author->author_id?>');" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+    </tr>
+<?
+        }
+    } else {
+?>
+    <tr>
+        <td class="formfield" align="center" colspan="5"><span class="bold">No Authors Associated</span></td>
+    </tr>
+<?
+    }
+?>
+</table>
+
+<!-- END PAPER AUTHORS -->
+
+
+<!-- PAPER MEDIA -->
+<form name="add_media" method="get" action="/publish.php">
+    <input type="hidden" name="mode" value="edit_media">
+    <input type="hidden" name="is_published" value="true">
+    <input type="hidden" name="paper_id" value="<?=$oPaper->paper_id?>">
+<a name="media"></a>
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="7" class="formheader">Media</td>
+    </tr>
+    <tr>
+        <td class="formfield" align="center" colspan="7"><input type="submit" class="submit" name="submit" value="Add Media Item" /></td>
+    </tr>
+</form>
+<?
+    if(count($oPaper->media)){
+?>
+    <tr>
+        <td class="editheader" align="center"><span class="bold">ID</span></td>
+        <td class="editheader" align="center"><span class="bold">File</span></td>
+        <td class="editheader" align="center"><span class="bold">Type</span></td>
+        <td class="editheader" align="center" nowrap><span class="bold">Size</span></td>
+        <td class="editheader" align="center"><span class="bold">Added</span></td>
+        <td class="editheader" align="center">&nbsp;</td>
+        <td class="editheader" align="center">&nbsp;</td>
+    </tr>
+<?
+        $i=0;
+        foreach($oPaper->media AS $oMedia){
+            $i++;
+            $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+    <tr>
+        <td class="<?=$class?>"><?=$oMedia->media_item_id?></td>
+        <td class="<?=$class?>" align="center" width="100%"><?=vAdmin::getFileInfo($oMedia,true)?></td>
+        <td class="<?=$class?>" align="center" nowrap><?=Media::getMediaType($oMedia)?></td>
+        <td class="<?=$class?>" align="center"><?=($oMedia->file_size)?$oMedia->file_size:'0'?>kb</td>
+        <td class="<?=$class?>" nowrap><?=vAdmin::formatDate($oMedia->date_added,false,true,true)?></td>
+        <td class="<?=$class?>"><a href="/publish.php?is_published=1&mode=edit_media&media_item_id=<?=$oMedia->media_item_id?>&paper_id=<?=$oPaper->paper_id?>" class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+        <td class="<?=$class?>"><a href="#" onClick="confirmAction('Permanently delete media item from system?','/publish.php?is_published=true&mode=delete_media&paper_id=<?=$oPaper->paper_id?>&media_item_id=<?=$oMedia->media_item_id?>');" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+    </tr>
+<?
+        }
+    } else {
+?>
+    <tr>
+        <td class="formfield" align="center" colspan="7"><span class="bold">No Media Associated</span></td>
+    </tr>
+<?
+    }
+?>
+</table>
+
+<!-- END PAPER MEDIA -->

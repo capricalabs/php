@@ -1,0 +1,151 @@
+<?
+/*--- set in paper controller --*/
+$oSubmission = $mySub->oSubmission;
+?>
+
+<form method="post" action="/submit.php" name="submission" > 
+	<input type="hidden" name="mode" value="set_paper_info" />
+	<input type="hidden" name="submode" value="" />
+	<input type="hidden" name="delay_session_start" value="true">
+    <?
+        if($_SESSION['submission_mode'] == "publish"){
+    ?>	
+    <input type="hidden" name="is_publication" value="1">
+    <?
+        } 
+    ?>
+    
+    <table width="100%" cellspacing="1" cellpadding="3" border="0" class="summary-table">
+        <tr>
+            <td class="editheader" colspan="2">Basic Information:</td>
+        </tr>
+        <tr class="formfield">
+            <td align="right" class="formname">Title:</td>
+            <td><input type="text" name="title" class="textfield" value="<?=$oSubmission->title?>" style="width: 325px; height: 20px;"></td>
+        </tr>
+    <?
+        if($_SESSION['submission_mode'] != "publish"){
+    ?>
+        <tr> 
+            <td colspan="2" class="formfield">If this is a <span class="bold"> resubmission </span> of a paper that was previously reviewed by PROJAS, enter the submission number previously assigned to the paper. Otherwise leave it blank.</td>
+        </tr>
+        <tr class="formfield">
+           <td align="right" class="formname" nowrap>Prior Submission ID:</td>
+           <td valign="top"><input type="text" name="resub_paper_id" size="4" value="<?=$oSubmission->resub_paper_id?>" /></td>
+        </tr>
+    <?
+        } else {
+    ?>
+        <tr class="formfield">
+           <td align="right" class="formname" nowrap>Paper ID:</td>
+           <td valign="top"><input type="text" name="paper_id" size="4" value="<?=$oSubmission->paper_id?>" /></td>
+        </tr>
+        <tr class="formfield">
+           <td align="right" class="formname" nowrap>Volume:</td>
+           <td valign="top"><input type="text" name="volume" size="4" value="<?=$oSubmission->volume?>" /></td>
+        </tr>
+        <tr class="formfield">
+           <td align="right" class="formname" nowrap>Beginning Page Number:</td>
+           <td valign="top"><input type="text" name="start_page" size="4" value="<?=$oSubmission->start_page?>" /></td>
+        </tr>
+        <tr class="formfield">
+           <td align="right" class="formname" nowrap>Ending Page Number:</td>
+           <td valign="top"><input type="text" name="end_page" size="4" value="<?=$oSubmission->end_page?>" /></td>
+        </tr>
+    <?
+        }
+    ?>
+        <tr class="formfield" class="formname">
+           <td colspan="2" class="editheader" align="center">Authors:</td>
+        </tr>
+        <tr class="formfield">
+           <td colspan="2" class="formfield">Please enter the names and e-mail addresses of the authors, in the order in which they are listed on the paper.</td>
+        </tr>
+    <?
+        if(count($oSubmission->author_count)){
+            for($i=0;$i<$oSubmission->author_count;$i++){
+                $class = ($i % 2 == 1) ? 'formfield': 'tile';
+    ?>
+                <tr class="<?=$class?>">
+                   <td align="right" class="<?=$class?>" width="30%">First Name:</td>
+                   <td class="<?=$class?>"><input type="text" name="first_name[]" value="<?=$oSubmission->authors[$i]->first_name?>" class="textfield" onchange="drawContactSelect(this);" style="width: 225px; height: 20px;"/></td>
+                </tr>
+                <tr class="<?=$class?>">
+                   <td align="right" class="<?=$class?>">Middle Name:</td>   
+                   <td class="<?=$class?>"><input type="text" name="middle_name[]" value="<?=$oSubmission->authors[$i]->middle_name?>" class="textfield" onchange="drawContactSelect();" style="width: 225px; height: 20px;"/></td>
+                </tr>
+                <tr class="<?=$class?>">
+                   <td align="right" class="<?=$class?>">Last Name:</td>   
+                   <td class="<?=$class?>"><input type="text" name="last_name[]" value="<?=$oSubmission->authors[$i]->last_name?>" class="textfield" onchange="drawContactSelect();" style="width: 225px; height: 20px;"/></td>
+                </tr>
+                <tr class="<?=$class?>">
+                   <td align="right" class="<?=$class?>">E-mail:</td>
+                   <td class="<?=$class?>"><input type="text" name="email[]" value="<?=$oSubmission->authors[$i]->email?>" class="textfield"  style="width: 225px; height: 20px;"/></td>
+                </tr>
+    <?
+            }
+        }
+        if($_SESSION[submission_mode] != "publish"){
+    ?>
+        <tr class="formfield" class="formname">
+           <td colspan="2" class="editheader" align="center">Contact Author Info:</td>
+        </tr>
+        <tr>
+           <td colspan="2" class="formfield">The <span class="bold">contact author</span> is the author to whom we should send e-mail about the paper.</td>
+        </tr>
+        <tr>
+           <td align="center" colspan="2" class="formfield">Contact Author:
+                                 <select name="author_contact">
+                                    <option>Select Contact</option>
+                                 </select></td>
+        </tr>
+        <tr class="formfield" class="formname">
+           <td colspan="2" class="formfield" align="center"><span class="bold">Contact Author Mailing Address:</span></td>
+        </tr>
+        <tr class="formfield">
+           <td colspan="2" align="center"><textarea name="author_address" class="textarea" style="width: 415px;height:75px;"><?=$oSubmission->author_address?></textarea></td>
+        </tr>
+        <tr>
+           <td colspan="2" class="formfield">If there is any special information you wish to convey to the editors, you can do so below. 
+                This includes information regarding online appendices that might impact the review process, 
+                as well as information regarding prior/future publication elsewhere. (Authors must notify 
+                the editors if their submission has been previously published elsewhere or is submitted for 
+                publication elsewhere during the PROJAS review/publication process, so as to ensure that PROJAS's 
+                standards for originality are adhered to.) </td>
+        </tr>
+        <tr class="formfield">
+           <td colspan="2" class="editheader" align="center">Special Information for editors:</td>
+        </tr>
+        <tr>
+           <td colspan="2" align="center" class="formfield"><textarea name="notes" class="textarea" style="width: 415px;height:200px;"><?=$oSubmission->notes?></textarea></td>
+        </tr>
+    <?
+    }
+    ?>
+        <tr class="formfield"> 
+            <td colspan="2" class="editheader" align="center">Paper Abstract:</td>
+        </tr>
+        <tr> 
+            <td colspan="2" align="center" class="formfield"><textarea name="abstract" class="textarea" style="width: 415px;height:200px;"><?=$oSubmission->abstract?></textarea></td>
+        </tr>
+        <tr>
+           <td colspan="2" class="formfield"><span class="bold">Go On to Next Part of Submission Process</span><br>
+            Once you have entered all the information requested above, press
+            the "Continue" button below. At that point, you will be given the opportunity to
+            check and revise the information you have provided. You will also be
+            given further details as to how to upload your paper to us.</td>
+        </tr>
+        <tr>
+           <td colspan="2" align="center" class="formfield"><input type="submit" class="submit" name="submit1" value="&laquo; Back" onClick="this.form.mode.value='prelim';this.form.submode.value='edit';return true;">&nbsp;
+           <input type="submit" class="submit" name="submit2" value="Continue &raquo;"></td>
+        </tr>
+        <tr>
+           <td colspan="2" class="formfield" align="center"><span class="bold">Questions?</span><em>If you have any questions about this form, send email to jair-ed@isi.edu. </em></td>
+        </tr>
+    </table>
+</form>
+<? if($oSubmission->author_contact){ ?>
+    <script>
+    drawContactSelect(<?=$oSubmission->author_contact?>);
+    </script>
+<? } ?>

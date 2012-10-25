@@ -1,0 +1,48 @@
+== Description ==
+
+The Peer Review Online Journal Administrative System, PROJAS, is a web application that supports the management of an online, peer-reviewed journal. PROJAS provides a simple, lightweight workflow for journal administrators.
+
+== File Structure Explained ==
+
+This document should help you become familiar with the application structure of Projas. These are the directories found at the root of 
+a Projas project:
+
+jair/
+    conf/
+    cron/
+    docs/
+    inc/
+        control/
+        lib/
+        object/
+        view/
+    jair.admin/
+        images/
+    jair.public/
+        images/
+    media/
+    templates/
+        forms/
+        include/
+        public/
+    
+The conf directory contains the configuration variables needed to connect to the database, and adapt the CMS
+to your envronment. 
+
+The cron directory is used for php scripts called from the command line, or a scheduler to run batch processes. 
+
+The docs directory contains documentation on the Projas project. 
+
+the inc directory contains the core of the back-end. The controllers integrate most of the business logic in the 
+system. The lib files contain the core classes, which interact with the database, and provide other needed utilities. 
+object contains a class, schema representation. These classes map the database to the object properties for automagical
+sql creation. view contains methods which generate front-end code, from controller given data. 
+
+jair.admin controls all the admin templates, and control includes. 
+
+jair.public contains the public site cache. this can either be accessed locally, or synced w/a remote server, as set 
+up w/the PROJAS project. 
+
+media contains all the uploaded media within the system. 
+
+templates has all the admin forms, headers, footers, and public site static content pages. 

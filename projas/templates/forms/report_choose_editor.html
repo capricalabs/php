@@ -1,0 +1,23 @@
+<table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+  <form action="/reports.php" method="post" name="report" autocomplete="off">
+  <input type="hidden" name="mode" value="reports">
+  <input type="hidden" name="type" value="3">
+  <input type="hidden" name="submode" value="submit">
+  <input type="hidden" name="people_id" value="" id="people_id">
+      <tr>
+        <td class="editheader" colspan="2">Select Editor</td>
+      </tr>  
+      <tr>
+      <td align="right" class="formname" width="30%">Editor:</td>
+      <td class="formfield">
+        <input type="text" id="name" name="name" onkeypress="javascript:liveSearchStart('editor');" style="width: 215px; height: 20px;" />
+      </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center" class="formfield"><input type="submit" class="submit" name="submit" value=" Select Editor "></td>
+      </tr>
+  </form>
+</table>
+<span id="LSResult" class="suggest_editor">
+  <span id="LSShadow"></span>
+</span>

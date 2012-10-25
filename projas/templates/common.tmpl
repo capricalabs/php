@@ -1,0 +1,40 @@
+<?
+
+/*
+ *
+ *
+ *
+ * @author		DWN <dan.netzer@gmail.com>
+ * @copyright	(c) 2005 PROJAS
+ * @version		$Id: common.tmpl,v 1.1.1.1 2006-02-08 02:24:33 dan Exp $
+ *
+ *
+ * @notes: template used by entire admin side
+ *
+ */
+ 
+include_once (PROJAS_TEMPLATES.'include/top.inc');
+?>
+<br>
+<table cellpadding="3" cellspacing="0" border="0" width="85%">
+    <tr>
+        <td align="center">
+<?
+        echo ($sTitle) ? '<span class="title">'.$sTitle.'</span><br>' : '';
+        echo vAdmin::drawMessage($sErrorMessage, $sSuccessMessage, $sMessage);
+        echo $sThirdNav; 
+        echo $sTopPaging;
+        echo $sContent;
+        
+            if($sFormInclude){
+                include_once PROJAS_TEMPLATES.'/forms/'.$sFormInclude.'.html' ;
+            }
+            
+        echo $sBottomPaging;
+?>
+        </td>
+    </tr>
+</table>
+<?
+include_once (PROJAS_TEMPLATES.'include/bot.inc');
+?>

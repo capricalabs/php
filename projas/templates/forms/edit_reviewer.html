@@ -1,0 +1,44 @@
+<?
+$oReviewer = $myPM->oTemp;
+?>
+<form name="reviewer_form" action="/paper.php" method="post">
+    <input type="hidden" name="mode" value="update_reviewer">
+	<input type="hidden" name="paper_id" value="<?=$oReviewer->paper_id?>" />
+	<input type="hidden" name="reviewer_id" value="<?=$oReviewer->reviewer_id?>" />
+	<input type="hidden" name="people_id" value="<?=$oReviewer->people_id?>" />
+	<table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+		<tr>
+			<td class="editheader" colspan="2">Edit Reviewer <?=$oReviewer->reviewer_id?></td>
+		</tr>
+		<tr>
+			<td class="formname" width="20%">First Name</td>
+			<td class="formfield"><input type="text" id="first_name" name="first_name" class="input_text" value="<?=$oReviewer->first_name?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Last Name</td>
+			<td class="formfield"><input type="text" id="last_name" name="last_name" class="input_text" value="<?=$oReviewer->last_name?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Email</td>
+			<td class="formfield"><input type="text" id="email1" name="email1" class="input_text" value="<?=$oReviewer->email1?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Date Due</td>
+			<td class="formfield"><?=vAdmin::getDateSelect('date_due',$oReviewer->date_due)?></td>
+		</tr>
+		<tr>
+			<td class="formname">Date Received</td>
+			<td class="formfield"><?=vAdmin::getDateSelect('date_received',$oReviewer->date_received)?></td>
+		</tr>
+		<tr>
+			<td class="formname">Notes</td>
+			<td class="formfield"><textarea name="editor_notes" class="textareab"><?=$oReviewer->editor_notes?></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="formfield" align="center">
+			<input type="button" class="submit" name="cancel" value="Cancel" onclick="document.location='/paper.php?mode=paper_details&paper_id=<?=$oReviewer->paper_id?>';" />&nbsp;
+			<input type="submit" class="submit" name="submit" value="Save" />
+			</td>
+		</tr>
+	</table>
+</form>

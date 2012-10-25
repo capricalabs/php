@@ -1,0 +1,27 @@
+<table cellpadding="10" cellspacing="1" border="0" width="100%" class="summary-table">
+    <tr>
+        <td class="editheader">Thankyou for your Submission</td>
+    </tr>
+    <tr>
+        <td class="formfield">
+    <?
+        if($_SESSION['submission_mode'] != "publish"){
+    ?>
+             You should receive an email acknowledgment from us within 
+             4 business days verifying that your submission is complete and the editors have your paper. 
+             If you do not receive an e-mail acknowledgement after 4 business days, please send an e-mail 
+             inquiry to us at <a href="mailto:jair-ed@isi.edu">jair-ed@isi.edu</a>
+            <br /><br />
+             Thank you!
+            <br /><br /><a href="http://jair.org">Go To PROJAS home page</a>
+    <?
+        } else {
+    ?>
+            <br/>Thanks for submitting your publication! Please contact <a href="mailto:jair-ed@isi.edu">jair-ed@isi.edu</a> if you have any questions.
+    <?
+        }
+    ?>
+            
+            <br><br><br></td>
+    </tr>
+</table>

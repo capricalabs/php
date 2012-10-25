@@ -1,0 +1,28 @@
+<?
+$oUser = $myUser->oTemp;
+?>
+<form name="edit_user" action="/users.php" method="post">
+    <input type="hidden" name="mode" value="choose_person">
+	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="summary-table">
+		<tr>
+		   <td class="editheader" colspan="2">Add User</td>
+		</tr>
+		<tr>
+		   <td class="formname">First&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="person_first_name" maxlength="25" value="" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Middle&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="person_middle_name" maxlength="25" value="" /></td>
+		</tr>
+		<tr>
+		   <td class="formname">Last&nbsp;Name:</td>
+		   <td class="formfield"><input type="text" name="person_last_name" maxlength="50" value="" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="formfield">
+			<input type="submit" class="submit" name="cancel" value="Cancel" />&nbsp;
+			<input type="submit" class="submit" name="submit" value="Submit" /></td>
+		</tr>
+	</table>
+</form>

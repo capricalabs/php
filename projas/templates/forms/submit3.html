@@ -1,0 +1,99 @@
+<?
+/*-- set in submission controller --*/
+$oSubmission = $mySub->oSubmission;
+?>
+
+<form name="sub_verify_paper_info" action="/submit.php" method="post">
+    <input type="hidden" name="mode" value="paper_confirmed">
+    <input type="hidden" name="submode" value="">
+    <input type="hidden" name="delay_session_start" value="true">
+    
+    <table cellpadding="0" cellspacing="1" border="0" width="100%" class="summary-table">
+        <tr>
+            <td colspan="2" class="editheader"><span class="bold">Paper Information:</td>
+        </tr>
+        <tr>
+           <td width="35%" class="formname">Title:</td>
+           <td class="formfield"><?=$oSubmission->title?></td>
+        </tr>
+    <?
+        if($_SESSION[submission_mode] != "publish"){
+    ?>
+        <tr>
+           <td class="formname">Prior Submission ID:</td>
+           <td class="formfield"><?=$oSubmission->resub_paper_id?></td>
+        </tr>
+    <?
+        } else {
+    ?>  
+        <tr>
+           <td class="formname">Paper ID:</td>
+           <td class="formfield"><?=$oSubmission->paper_id?></td>
+        </tr>
+        <tr>
+           <td class="formname">Volume:</td>
+           <td class="formfield"><?=$oSubmission->volume?></td>
+        </tr>
+        <tr>
+           <td class="formname">First Page:</td>
+           <td class="formfield"><?=$oSubmission->start_page?></td>
+        </tr>
+        <tr>
+           <td class="formname">Last Page:</td>
+           <td class="formfield"><?=$oSubmission->end_page?></td>
+        </tr>
+    <?
+        }
+    ?>
+        <tr>
+            <td colspan="2" class="editheader"><span class="bold">Authors:</span></td>
+        </tr>
+<?
+    $i=0;
+    foreach($oSubmission->authors AS $oAuthor){
+        $i++;
+        $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+        <tr>
+           <td class="<?=$class?>" align="right">First Name:</td>
+           <td class="<?=$class?>"><?=$oAuthor->first_name?></td>
+        </tr>
+        <tr>
+           <td class="<?=$class?>" align="right">Middle Name:</td>
+           <td class="<?=$class?>"><?=$oAuthor->middle_name?></td>
+        </tr>
+        <tr>
+           <td class="<?=$class?>" align="right">Last Name:</td>
+           <td class="<?=$class?>"><?=$oAuthor->last_name?></td>
+        </tr>
+        <tr>
+           <td class="<?=$class?>" align="right">E-mail:</td>
+           <td class="<?=$class?>"><?=$oAuthor->email?></td>
+        </tr>
+<?
+    }
+
+    if($_SESSION[submission_mode] != "publish"){
+    ?>  
+        <tr>   
+           <td class="formname">Contact Author Address:</td>
+           <td class="formfield"><?=nl2br($oSubmission->author_address)?></td>
+        </tr>
+        <tr>   
+           <td class="formname">Information for Editors:</td>
+           <td class="formfield"><?=nl2br($oSubmission->notes)?></td>
+        </tr>
+    <?
+    }
+    ?>
+        <tr>
+           <td class="formname">Abstract:</td>
+           <td class="formfield"><?=nl2br($oSubmission->abstract)?></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center" class="formfield"><input type="submit" class="submit" name="submit1" value="&laquo; Edit Data" onClick="this.form.mode.value='step2';this.form.submode.value='edit';return true;"/>&nbsp;
+            <input type="submit" class="submit" name="submit" value="Approve Data &raquo;" />
+        </td>
+        </tr>
+    </table>
+</form>

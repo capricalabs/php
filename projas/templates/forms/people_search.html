@@ -1,0 +1,29 @@
+<table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+  <form action="/people.php" method="post" name="report" onsubmit="return checkForm(this);" autocomplete="off">
+    <input type="hidden" name="mode" value="list">
+  <tr>
+    <td class="editheader" colspan="2">Search People</td>
+  </tr>  
+  <tr>
+  <td align="right" class="formname" width="30%">Name:</td>
+  <td class="formfield">
+    <input type="text" name="name" style="width: 215px; height: 20px;" />
+  </td>
+  </tr>
+  <tr>
+  <td align="right" class="formname" width="30%">Person Type:</td>
+  <td class="formfield">
+    <select name="person_type">
+        <option value="">All People</option>
+        <option value="authors">Authors</option>
+        <option value="reviewers">Reviewers</option>
+        <option value="users">Users</option>
+        <option value="editors">Editors</option>
+    </select>
+  </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" class="formfield"><input type="submit" class="submit" name="submit" value=" Submit "></td>
+  </tr>
+  </form>
+</table>

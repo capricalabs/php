@@ -1,0 +1,51 @@
+<table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+<?
+    if(count($myPM->reports['active'])){
+?>
+<tr>
+    <td colspan="4" class="editheader">Active Editors</td>
+</tr>
+  <tr>
+    <td class="reportheader" align="left">Name</td>
+    <td class="reportheader" align="center">Current</td>
+    <td class="reportheader" align="center">Pending</td>
+    <td class="reportheader" align="center" nowrap>Within Last Year</td>
+  </tr>
+<?
+        foreach($myPM->reports['active'] AS $oReport){
+?>
+  <tr>
+    <td class="formfield" align="left" width="25%"><a href="/reports.php?mode=reports&type=3&submode=submit&people_id=<?=$oReport->people_id?>"><?=$oReport->editor_name;?></a></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->current_paper_count;?></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->pending_paper_count;?></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->total_paper_count;?></td>
+  </tr>
+<?
+        }
+    }
+
+    if(count($myPM->reports['inactive'])){
+?>
+<tr>
+    <td colspan="4" class="editheader">Inactive Editors</td>
+</tr>
+  <tr>
+    <td class="reportheader" align="left">Name</td>
+    <td class="reportheader" align="center">Current</td>
+    <td class="reportheader" align="center">Pending</td>
+    <td class="reportheader" align="center" nowrap>Within Last Year</td>
+  </tr>
+<?
+        foreach($myPM->reports['inactive'] AS $oReport){
+?>
+  <tr>
+    <td class="formfield" align="left" width="25%"><a href="/reports.php?mode=reports&type=3&submode=submit&people_id=<?=$oReport->people_id?>"><?=$oReport->editor_name;?></a></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->current_paper_count;?></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->pending_paper_count;?></td>
+    <td class="formfield" align="center" width="25%"><?=$oReport->total_paper_count;?></td>
+  </tr>
+<?
+        }
+    }
+?>
+</table>

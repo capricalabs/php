@@ -1,0 +1,117 @@
+<?
+$arMerge = $myPM->oTemp;
+?>
+<form id="author_form" action="/paper.php" method="post">
+    <input type="hidden" name="mode" value="update_author">
+    <input type="hidden" name="submode" value="process_author">
+    <input type="hidden" name="action" value="merge">
+	<input type="hidden" name="submission_id" value="<?=$_POST[submission_id]?>" />
+	<input type="hidden" name="submission_author_id" value="<?=$_POST[submission_author_id]?>" />
+	<input type="hidden" name="people_id" value="<?=$arMerge['people_id']?>" />
+	<input type="hidden" name="paper_id" value="<?=$_POST[paper_id]?>" />
+	<input type="hidden" name="is_published" value="<?=($arMerge['is_published'])?'1':'0'?>">
+    <input type="hidden" name="is_contact" value="<?=$arMerge['is_contact']?>" />
+    <input type="hidden" name="published_first_name" value="<?=$arMerge['published_first_name']?>">
+    <input type="hidden" name="published_middle_name" value="<?=$arMerge['published_middle_name']?>">
+    <input type="hidden" name="published_last_name" value="<?=$arMerge['published_last_name']?>">
+
+	<table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+	    <tr>
+	        <td colspan="3" class="editheader">Merge Person <?=$arMerge['author_id']?></td>
+		</tr>
+<? if($arMerge['is_published']){ ?>
+		<tr>
+		  <td class="formname" align="right">Published Name:</td>
+		  <td class="formfield" colspan="2"><?=$arMerge['published_first_name'].' '.$arMerge['published_middle_name']. ' '.$arMerge['published_last_name']?>&nbsp;<span class="small">(associated to paper)</span></td>
+		</tr>
+<? } ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">First Name:</span></td>
+		</tr>
+<? if(is_array($arMerge['first_name'])){ ?>
+		<tr>
+		    <td class="formfield" width="25%" align="right"><span class="bold">Select Value:</span>&nbsp;</td>
+			<td class="formfield"><input type="radio" name="select_first_name" value="1">&nbsp;<input type="text" name="first_name" maxlength="25" value="<?=$arMerge['first_name']['author']?>" /></td>
+			<td class="formfield" width="41%"><input type="radio" name="select_first_name" value="0" checked>&nbsp;<?=$arMerge['first_name']['person']?></td>
+		</tr>
+<? } else { ?>
+        <tr>
+            <td colspan="3" class="formfield" align="center">Edit Value:&nbsp;<input type="text" name="first_name" value="<?=$arMerge['first_name']?>" /></td>
+        </tr>
+<? } ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Middle Name:</span></td>
+		</tr>
+<? if(is_array($arMerge['middle_name'])){ ?>
+		<tr>
+		    <td class="formfield" width="25%" align="right"><span class="bold">Select Value:</span>&nbsp;</td>
+			<td class="formfield"><input type="radio" name="select_middle_name" value="1">&nbsp;<input type="text" name="middle_name" maxlength="25" value="<?=$arMerge['middle_name']['author']?>" /></td>
+			<td class="formfield" width="41%"><input type="radio" name="select_middle_name" value="0" checked>&nbsp;<?=$arMerge['middle_name']['person']?></td>
+		</tr>
+<? } else { ?>
+        <tr>
+            <td colspan="3" class="formfield" align="center">Edit Value:&nbsp;<input type="text" name="middle_name" value="<?=$arMerge['middle_name']?>" /></td>
+        </tr>
+<? } ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Last Name:</span></td>
+		</tr>
+<? if(is_array($arMerge['last_name'])){ ?>
+		<tr>
+		    <td class="formfield" width="25%" align="right"><span class="bold">Select Value:</span>&nbsp;</td>
+			<td class="formfield"><input type="radio" name="select_last_name" value="1">&nbsp;<input type="text" name="last_name" maxlength="50" value="<?=$arMerge['last_name']['author']?>"  /></td>
+			<td class="formfield" width="41%"><input type="radio" name="select_last_name" value="0" checked>&nbsp;<?=$arMerge['last_name']['person']?></td>
+		</tr>
+<? } else { ?>
+        <tr>
+            <td colspan="3" class="formfield" align="center">Edit Value:&nbsp;<input type="text" name="last_name" value="<?=$arMerge['last_name']?>" /></td>
+        </tr>
+<? } ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Primary E-mail:</span></td>
+		</tr>
+<? if(is_array($arMerge['email1'])){ ?>
+		<tr>
+		    <td class="formfield" width="25%" align="right"><span class="bold">Select Value:</span>&nbsp;</td>
+			<td class="formfield"><input type="radio" name="select_email1" value="1">&nbsp;<input type="text" name="email1" maxlength="100" value="<?=$arMerge['email1']['author']?>" /></td>
+			<td class="formfield" width="41%"><input type="radio" name="select_email1" value="0" checked>&nbsp;<?=$arMerge['email1']['person']?></td>
+		</tr>
+<? } else { ?>
+        <tr>
+            <td colspan="3" class="formfield" align="center">Edit Value:&nbsp;<input type="text" name="email1" maxlength="25" value="<?=$arMerge['email1']?>" /></td>
+        </tr>
+<? } ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Secondary E-mail:</span></td>
+		</tr>
+		<tr>
+			<td class="formfield" align="center" colspan="3">Edit Value:&nbsp;<input type="text" name="email2" value="<?=$arMerge['email2']?>" /></td></td>
+		</tr>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Phone Number:</td>
+		</tr>
+		<tr>
+			<td class="formfield" align="center" colspan="3">Edit Value:&nbsp;<input type="text" name="phone" value="<?=$arMerge['phone']?>" /></td></td>
+		</tr>
+<? if(!$arMerge['is_published']){ ?>
+		<tr>
+		  <td colspan="3" class="formfield" align="center"><span class="bold">Address:</span></td>
+		</tr>
+<? if(is_array($arMerge['address'])){ ?>
+		<tr>
+		    <td class="formfield" align="right"><span class="bold">Select Value:</span>&nbsp;</td>
+			<td class="formfield" align="center">
+			<table cellpadding="0" cellspacing="0" border="0"><tr><td><input type="radio" name="select_address" value="1">&nbsp;</td><td><textarea name="address" class="textarea" style="width: 155px;height:55px;"><?=$arMerge['address']['author']?></textarea></td></tr></table></td>
+			<td class="formfield"><table cellpadding="0" cellspacing="0" border="0"><tr><td><input type="radio" name="select_address" value="0" checked>&nbsp;</td><td><?=nl2br($arMerge['address']['person'])?></td></tr></table></td>
+		</tr>
+<? } else { ?>
+        <tr>
+			<td class="formfield" align="center" colspan="3"><table cellpadding="2" cellspacing="0" border="0"><tr><td><span style="font-size: 12px;">Edit Value:</span></td><td><textarea name="address" class="textarea" style="width: 155px;height:55px;"><?=$arMerge['address']?></textarea></td></tr></table></td></td>
+		</tr>
+<?      }
+   } ?>
+		<tr>
+			<td colspan="3" class="formfield" align="center"><input type="submit" class="submit" name="update_author" value="Save" /></td>
+		</tr>
+	</table>
+</form>

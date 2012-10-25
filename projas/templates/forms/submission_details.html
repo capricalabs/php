@@ -1,0 +1,144 @@
+<?
+$oPaper = $myPM->papers[0]; 
+?>
+<form name="paper_detail_page" action="/paper.php" method="post">
+    <input type="hidden" name="mode" value="record_decision">
+	<input type="hidden" name="paper_id" value="<?=$oPaper->paper_id?>" />
+
+<a name="details"></a>
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="5" class="formheader">Paper Details</td>
+    </tr>
+    <tr>
+        <td class="formname">ID</td>
+        <td class="formfield" width="100%" colspan="4"><?=$oPaper->submission_id?></td>
+    </tr>
+    <tr>
+        <td class="formname">Paper ID</td>
+        <td class="formfield" width="100%" colspan="4"><?=$oPaper->paper_id?></td>
+    </tr>
+	<tr>
+		<td class="formname" valign="top">Title</td>
+		<td class="formfield" colspan="4"><?=$oPaper->title?></td>
+	</tr>
+	<tr>
+		<td class="formname">Prior ID</td>
+		<td class="formfield" colspan="4"><?=($oPaper->resub_paper_id)?$oPaper->resub_paper_id:'None'?></td>
+	</tr>
+	<tr>
+		<td class="formname">Received</td>
+		<td class="formfield" colspan="4"><?=vAdmin::formatDate($oPaper->date_received,false, true)?></td>
+	</tr>
+	<tr>
+		<td class="formname">Address</td>
+		<td class="formfield" colspan="4"><?=nl2br(vAdmin::drawAddress($oPaper->authors))?></td>
+	</tr>
+	<tr>
+		<td class="formname">Abstract</td>
+		<td class="formfield" colspan="4"><?=nl2br($oPaper->abstract)?></td>
+	</tr>
+<? if(strlen($oPaper->notes)){ ?>
+	<tr>
+		<td class="formname">Notes</td>
+		<td class="formfield" colspan="4" valign="top"><?=nl2br($oPaper->notes)?></td>
+	</tr>
+<? } ?>
+    <tr>
+		<td class="formname" nowrap>Survey Q1</td>
+		<td class="formfield" colspan="4"><?=$oPaper->prelimQ1?></td>
+	</tr>
+	<tr>
+		<td class="formname">Survey Q2</td>
+		<td class="formfield" colspan="4"><?=$oPaper->prelimQ2?></td>
+	</tr>
+	<tr>
+		<td class="formname">Survey Q3</td>
+		<td class="formfield" colspan="4"><?=$oPaper->prelimQ3?></td>
+	</tr>
+	<tr>
+		<td class="formname">Survey Q4</td>
+		<td class="formfield" colspan="4"><?=$oPaper->prelimQ4?></td>
+	</tr>
+</form>
+</table>
+<!-- PAPER AUTHORS -->
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="4" class="formheader">Authors</td>
+    </tr>
+<?
+    if(count($oPaper->authors)){
+?>
+    <tr>
+        <td class="editheader" align="center"><span class="bold">ID</span></td>
+        <td class="editheader" align="center"><span class="bold">Name</span></td>
+        <td class="editheader" align="center"><span class="bold">E-mail</span></td>
+        <td class="editheader" align="center" nowrap><span class="bold">Contact</span></td>
+    </tr>
+<?
+        $i=0;
+        foreach($oPaper->authors AS $author){
+            $i++;
+            $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+    <tr>
+        <td class="<?=$class?>"><?=$author->submission_author_id?></td>
+        <td class="<?=$class?>" nowrap><?=$author->first_name?> <?=$author->last_name?></td>
+        <td class="<?=$class?>" width="100%"><?=$author->email?></td>
+        <td class="<?=$class?>" align="center"><?=($author->is_contact)?'Yes':'No'?></td>
+    </tr>
+<?
+        }
+    } else {
+?>
+    <tr>
+        <td class="formfield" align="center" colspan="4"><span class="bold">No Authors Associated</span></td>
+    </tr>
+<?
+    }
+?>
+</table>
+<!-- END PAPER AUTHORS -->
+
+<!-- PAPER MEDIA -->
+
+<a name="media"></a>
+<table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+    <tr>
+        <td colspan="5" class="formheader">Submission Media</td>
+    </tr>
+<?
+    if(count($oPaper->media)){
+?>
+    <tr>
+        <td class="editheader" align="center"><span class="bold">ID</span></td>
+        <td class="editheader" align="center"><span class="bold">File</span></td>
+        <td class="editheader" align="center"><span class="bold">Type</span></td>
+        <td class="editheader" align="center" nowrap><span class="bold">Size</span></td>
+        <td class="editheader" align="center"><span class="bold">Added</span></td>
+    </tr>
+<?
+        $i=0;
+        foreach($oPaper->media AS $oMedia){
+            $i++;
+            $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+    <tr>
+        <td class="<?=$class?>"><?=$oMedia->media_item_id?></td>
+        <td class="<?=$class?>" align="center" width="100%"><?=vAdmin::getFileInfo($oMedia)?></td>
+        <td class="<?=$class?>" align="center" nowrap><?=Media::getMediaType($oMedia)?></td>
+        <td class="<?=$class?>" align="center"><?=($oMedia->file_size)?$oMedia->file_size:'0'?>kb</td>
+        <td class="<?=$class?>" nowrap><?=vAdmin::formatDate($oMedia->date_added,false,true,true)?></td>
+<?
+        }
+    } else {
+?>
+    <tr>
+        <td class="formfield" align="center" colspan="5"><span class="bold">No Submitted Media</span></td>
+    </tr>
+<?
+    }
+?>
+</table>
+<!-- END PAPER MEDIA -->

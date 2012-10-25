@@ -1,0 +1,24 @@
+<form name="publish_site" action="/publish.php" method="post">
+    <input type="hidden" name="mode" value="">
+<table border="0" cellpadding="1" cellspacing="1" class="summary-table">
+    <tr>
+        <td class="editheader">Publish Site</td>
+    </tr>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="10" border="0">
+              <tr>
+                <td width="300" align="center"><input type="button" name="regenerate" onclick="this.form.mode.value='publish_generate';this.form.submit();return false;" value="&laquo;&laquo; Regenerate Site &raquo;&raquo;"></td>
+              </tr>
+         </table></td>
+    </tr>
+     <tr>
+        <td>
+         <table cellpspacing="0" cellpadding="10" border="0">
+              <tr>
+                <td align="center" width="300"><input type="button" name="syncronize" onclick="this.form.mode.value='publish_transfer';this.form.submit();return false;" value="&laquo;&laquo; Publish to Mirror Host &raquo;&raquo;"></td>
+              </tr>
+          </table></td>
+    </tr>
+</table>
+</form>

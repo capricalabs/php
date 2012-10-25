@@ -1,0 +1,70 @@
+<?php
+    if(count($myPM->papers)){
+        foreach($myPM->papers AS $oPaper){
+?>
+<table border="0" cellspacing="1" cellpadding="1" width="100%" class="summary-table">
+    <tr>
+        <td class="editheader" align="center"><span class="bold">ID</span></td>
+        <td class="editheader" align="center"><span class="bold">Submitted</span></td>
+        <td class="editheader" align="center"><span class="bold">Acknowledged</span></td>
+        <td class="editheader" align="center"><span class="bold">Decision</span></td>
+        <td class="editheader" align="center"><span class="bold">Published</span></td>
+    </tr>
+    <tr>
+        <td class="formfield" align="center"><?=$oPaper->paper_id?></td>
+        <td class="formfield" align="center"><?=vAdmin::formatDate($oPaper->date_received, false, true)?></td>
+        <td class="formfield" align="center"><?=vAdmin::formatDate($oPaper->date_acknowledged, false, true)?></td>
+        <td class="formfield" align="center"><?=$arPaperDecisions[$oPaper->decision]?></td>
+        <td class="formfield" align="center"><?=($oPaper->is_published) ? '<a href="/publish.php?mode=publish_details&paper_id='.$oPaper->paper_id.'" class="edit">Yes</a>' : 'No'?></td>
+    </tr>
+    <tr>
+        <td class="formname">Title</strong></td>
+        <td class="formfield" colspan="4"><?=ucwords(strtolower($oPaper->title))?></td>
+    </tr>
+    <tr>
+        <td class="formname">Authors</strong></td>
+        <td class="formfield" colspan="4" width="100%"><?=vAdmin::drawAuthors($oPaper->authors)?></td>
+    </tr>
+<?
+/*-- USER TYPE PERMISSIONS --*/
+if(cLogin::hasPermission($oPaper)){ ?>
+    <tr>
+        <td class="formname">Reviewers</strong></td>
+        <td class="formfield" colspan="4"><?=vAdmin::drawReviewers($oPaper->reviewers)?></td>
+    </tr>
+<? } ?>
+    <tr>
+        <td class="formname">Editor</strong></td>
+        <td class="formfield" colspan="4"><?=vAdmin::drawEditor($oPaper)?></td>
+    </tr>
+<? if(strlen($oPaper->notes)){ ?>
+    <tr>
+        <td class="formname">Notes</strong></td>
+        <td class="formfield" colspan="4"><?=$oPaper->notes?></td>
+    </tr>
+<?  } 
+    if(count($oPaper->media)){ 
+?>
+    <tr>
+        <td class="formname">Files:</td>
+        <td class="formfield" colspan="4" width="100%"><?=vAdmin::drawFiles($oPaper->media)?></td>
+    </tr>
+<?  } 
+
+/*-- USER TYPE PERMISSIONS --*/
+if(cLogin::hasPermission($oPaper)){ ?>
+    <tr>
+        <td colspan="5" align="center" class="formfield"><input type="submit" class="submit" name="submit" value="View Details" onClick="window.location='/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>'; return false;"/></td>
+    </tr>
+<? } ?>
+</table>
+<?
+        }
+    } else {
+?>
+<table border="0" cellspacing="1" cellpadding="1" width="100%">
+    <tr>
+        <td class="formfield" colspan="5" align="center">No papers returned</td>
+    </tr>
+</table>
+<?  } ?>

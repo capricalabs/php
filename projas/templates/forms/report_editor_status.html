@@ -1,0 +1,137 @@
+<?
+$oReport = $myPM->oReport;
+?>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+  <tr>
+    <td>
+      <table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+        <tr>
+          <td class="reportheader" align="center" width="33%">Editor Name</td>
+          <td class="reportheader" align="center" width="34%">Pending Requests</td>
+          <td class="reportheader" align="center" width="33%">Needing Reviewers</td>
+        </tr>
+        <tr>
+          <td class="formfield" align="center"><?=$oReport->editor_name?></td>
+          <td class="formfield" align="center"><?=$oReport->pending_paper_count?></td>
+          <td class="formfield" align="center"><?=$oReport->total_needing_reviewers?></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+        <tr>
+          <td class="formheader" align="center" colspan="4">Papers Out For Review</td>
+        </tr>
+<?      
+    if(count($oReport->papers['out_for_review'])){
+?>
+        <tr>
+          <td class="reportheader" align="center" width="55" nowrap>Paper #</td>
+          <td class="reportheader" align="center" width="33%">Date Submitted</td>
+          <td class="reportheader" align="center" width="33%">Editor Confirmed</td>
+          <td class="reportheader" align="center" width="33%">Reviewer Cnt</td>
+          
+        </tr>
+<?
+        foreach($oReport->papers['out_for_review'] AS $oPaper){
+?>
+        <tr>
+          <td class="formfield" align="center"><a href="/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>"><?=$oPaper->paper_id?></a></td>
+          <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->date_received, false, true)?></td>
+          <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->date_editor_assigned, false, true)?></td>
+          <td class="formfield" align="center" nowrap><?=count($oPaper->reviewers)?></td>
+        </tr>
+<?
+        }
+    } else {
+?>
+        <tr>
+            <td class="formfield" align="center" colspan="4">None</td>
+        </tr>
+<?
+    }
+?>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+        <tr>
+          <td class="formheader" align="center" colspan="3">Accepted Papers Awaiting Publication</td>
+        </tr>
+<?
+    if(count($oReport->papers['awaiting_pub'])){
+?>
+        <tr>
+          <td class="reportheader" align="center" width="55" nowrap>Paper #</td>
+          <td class="reportheader" align="center" width="50%">Date Submitted</td>
+          <td class="reportheader" align="center" width="50%">Decision Date</td>
+        </tr>
+<?
+        foreach($oReport->papers['awaiting_pub'] AS $oPaper){
+?>
+            <tr>
+              <td class="formfield" align="center"><a href="/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>"><?=$oPaper->paper_id?></a></td>
+              <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->date_received, false, true)?></td>
+              <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->decision_date, false, true)?></td>
+            </tr>
+<?
+        }
+    } else {
+?>
+        <tr>
+            <td class="formfield" align="center" colspan="3">None</td>
+        </tr>
+<?
+    }
+?>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+        <tr>
+          <td class="formheader" align="center" colspan="4">Prior Papers</td>
+        </tr>
+<?
+        if(count($oReport->papers['prior'])){
+?>
+        <tr>
+          <td class="reportheader" align="center" width="55" nowrap>Paper #</td>
+          <td class="reportheader" align="center" width="33%">Date Submitted</td>
+          <td class="reportheader" align="center" width="33%">Decision</td>
+          <td class="reportheader" align="center" width="33%">Decision Date</td>
+
+        </tr>
+<?
+            foreach($oReport->papers['prior'] AS $oPaper){
+?>
+            <tr>
+              <td class="formfield" align="center"><a href="/paper.php?mode=paper_details&paper_id=<?=$oPaper->paper_id?>"><?=$oPaper->paper_id?></a></td>
+              <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->date_received, false, true)?></td>
+              <td class="formfield" align="center" nowrap><?=$arPaperDecisions[$oPaper->decision]?></td>
+              <td class="formfield" align="center" nowrap><?=vAdmin::formatDate($oPaper->decision_date, false, true)?></td>
+            </tr>
+<?
+            }
+        } else {
+?>
+        <tr>
+            <td class="formfield" align="center" colspan="4">None</td>
+        </tr>
+<?
+    }
+?>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<div align="left">
+<a href="/paper.php?mode=summary&type=8&editor_id=<?=$oReport->editor_id?>">View Full List Of Papers Edited by <?=$oReport->editor_name?> &raquo;&raquo;</a><br/>
+</div>

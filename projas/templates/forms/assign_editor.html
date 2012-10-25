@@ -1,0 +1,17 @@
+<form name="assign_editor_form" action="/paper.php" method="post">
+	<input type="hidden" name="paper_id" id="paper_id" value="<?=$_POST[paper_id]?>" />
+	<input type="hidden" name="mode" value="ask_editor">
+    <table cellspadding="0" cellspacing="1" border="0" width="100%" class="summary-table">
+        <tr>
+            <td colspan="2" class="editheader">Assign Editor</td>
+        </tr>
+        <tr>
+            <td class="formname" valign="top"><br>Select an editor:</td>
+            <td class="formfield"><br><select id="editor_user_id" name="editor_user_id" size="30"><?=$myPM->getEditors()?></select><br><br></td>
+        <tr>
+            <td colspan="2" class="formfield" align="center"><input type="button" class="submit" name="cancel" value="Cancel" onclick="history.back()" />&nbsp;
+                <input type="submit" class="submit" name="submit" value="Ask Editor" />
+            </td>
+        </tr>
+    </table>
+</form>	

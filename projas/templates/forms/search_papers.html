@@ -1,0 +1,152 @@
+<form action="/paper.php" method="post" name="search" onsubmit="return checkForm(this);" autocomplete="off">
+  <input type="hidden" name="mode" value="search_papers">
+  <input type="hidden" name="submode" value="submit">
+  <input type="hidden" name="people_id" value="" id="people_id">
+<table cellpadding="1" border="0" cellspacing="1" width="100%" class="summary-table">
+    <tr>
+        <td class="editheader" colspan="2">Search Paper Database</td>
+    </tr>  
+    <tr>
+    <td align="right" class="formname">Author:</td>
+    <td class="formfield">
+      <input type="text" id="name" name="name" onkeypress="javascript:liveSearchStart();"  style="width: 215px; height: 20px;" />
+      <!--
+      <div id="LSResult" style="position:relative; left:150px; top:-20px; z-index:220; overflow:auto; height:80px; width:165px;">
+            <div id="LSShadow"></div>
+      </div>-->
+    </td>
+  </tr>
+  <tr>
+    <td align="right" class="formname">Title:</td>
+    <td class="formfield"><input type="text" name="title" style="width: 215px; height: 20px;" \></td>
+  </tr>
+  <tr>
+    <td class="formname">Published:</td>
+    <td  class="formfield">
+      <input type="hidden" name="published_from_Date" id="published_from_Date" value="">
+      <select id="published_from_Month" onchange="changeDays('published_from_')">
+        <option value="">Month..</option>
+        <option value="0">January</option>
+        <option value="1">Februay</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <select id="published_from_Day">
+        <option value="">Day..</option>
+      </select>
+      <select id="published_from_Year" onchange="changeDays('published_from_')">
+        <option value="">Year..</option>
+        <option value="2000">2000</option>
+        <option value="2001">2001</option>
+        <option value="2002">2002</option>
+        <option value="2003">2003</option>
+        <option value="2004">2004</option>
+        <option value="2005">2005</option>
+        <option value="2006">2006</option>
+        <option value="2007">2007</option>
+        <option value="2008">2008</option>
+        <option value="2009">2009</option>
+        <option value="2010">2010</option>
+        <option value="2011">2011</option>
+        <option value="2012">2012</option>
+        <option value="2013">2013</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+      </select> through</td>
+  </tr>
+  <tr>
+    <td class="formname">&nbsp;</td>
+    <td  class="formfield">
+      <input type="hidden" name="published_to_Date" id="published_to_Date" value="">
+      <select id="published_to_Month" onchange="changeDays('published_to_')">
+        <option value="">Month..</option>
+        <option value="0">January</option>
+        <option value="1">Februay</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <select id="published_to_Day">
+        <option value="">Day..</option>
+      </select>
+      <select id="published_to_Year" onchange="changeDays('published_to_')">
+        <option value="">Year..</option>
+        <option value="2000">2000</option>
+        <option value="2001">2001</option>
+        <option value="2002">2002</option>
+        <option value="2003">2003</option>
+        <option value="2004">2004</option>
+        <option value="2005">2005</option>
+        <option value="2006">2006</option>
+        <option value="2007">2007</option>
+        <option value="2008">2008</option>
+        <option value="2009">2009</option>
+        <option value="2010">2010</option>
+        <option value="2011">2011</option>
+        <option value="2012">2012</option>
+        <option value="2013">2013</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="formname">Review Time</td>
+    <td class="formfield">
+      <select name="review_time">
+        <option value="">Select >></option>
+        <option value="greater_than">Is Greater Than&nbsp;</option>
+        <option value="equal_to">Is Equal To&nbsp;</option>
+        <option value="less_than">Is Less Than&nbsp;</option>
+      </select>
+      months:<input style="padding-left:2px;" type="text" name="rev_months" value="0" size="2">
+      years:<input style="padding-left:2px;" type="text" name="rev_years" value="0" size="2">
+    </td>
+  </tr>
+  <tr>
+    <td class="formname" align="center">Filter By:</td>
+    <td class="formfield">
+      <select name="filter">
+        <?=vAdmin::getDecisionOptions($oPaper,true)?>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="formname">Published Volume</td>
+    <td class="formfield">
+      <select name="volume">
+        <?=vAdmin::getPublishedVolumeOptions()?>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" class="formfield"><input type="submit" class="submit" name="submit" value=" Search Papers "></td>
+  </tr>
+  </form>
+</table>
+<span id="LSResult" class="suggest_author">
+  <span id="LSShadow"></span>
+</span>

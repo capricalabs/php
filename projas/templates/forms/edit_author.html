@@ -1,0 +1,73 @@
+<?
+$oAuthor = $myPM->oTemp;
+?>
+<form id="author_form" action="/paper.php" method="post">
+    <input type="hidden" name="mode" value="update_author">
+    <input type="hidden" name="submode" value="<?=$myPM->submode?>">
+	<input type="hidden" name="author_id" value="<?=$oAuthor->author_id?>" />
+	<input type="hidden" name="submission_id" value="<?=$_POST[submission_id]?>" />
+	<input type="hidden" name="submission_author_id" value="<?=$_POST[submission_author_id]?>" />
+	<input type="hidden" name="people_id" value="<?=$oAuthor->people_id?>" />
+	<input type="hidden" name="paper_id" value="<?=$_POST[paper_id]?>" />
+	<input type="hidden" name="is_published" value="<?=($_POST['is_published'])?'1':'0'?>">
+<? if($_POST[submode] =="process_author"){?>
+    <input type="hidden" name="is_contact" value="<?=$oAuthor->is_contact?>" />
+<?  }?>
+
+	<table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+	    <tr>
+	        <td colspan="2" class="editheader">Edit Author <?=$oAuthor->author_id?></td>
+		<tr>
+			<td class="formname">First&nbsp;Name:</td>
+			<td class="formfield"><input type="text" name="first_name" maxlength="25" value="<?=$oAuthor->first_name?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Middle&nbsp;Name:</td>
+			<td class="formfield"><input type="text" name="middle_name" maxlength="25" value="<?=$oAuthor->middle_name?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Last&nbsp;Name:</td>
+			<td class="formfield"><input type="text" name="last_name" maxlength="50" value="<?=$oAuthor->last_name?>"  /></td>
+		</tr>
+<? if($_POST['is_published']){ ?>
+		<tr>
+			<td class="formname">Published&nbsp;Name:</td>
+			<td class="formfield">
+			<input type="text" id="published_first_name" name="published_first_name" maxlength="25" value="<?=$oAuthor->published_first_name?>"  />
+			&nbsp;<input type="text" id="published_middle_name" name="published_middle_name" maxlength="25" style="width: 30px;" value="<?=$oAuthor->published_middle_name?>"  />
+			&nbsp;<input type="text" id="published_last_name" name="published_last_name" maxlength="25" value="<?=$oAuthor->published_last_name?>"  />
+			</td>
+		</tr>
+<? } ?>
+		<tr>
+			<td class="formname">Primary&nbsp;E-mail:</td>
+			<td class="formfield"><input type="text" id="email1" name="email1" maxlength="100" value="<?=$oAuthor->email1?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Secondary&nbsp;Email:</td>
+			<td class="formfield"><input type="text" id="email2" name="email2" maxlength="100" value="<?=$oAuthor->email2?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Phone&nbsp;Number:</td>
+			<td class="formfield"><input type="text" name="phone" maxlength="15" value="<?=$oAuthor->phone?>" /></td>
+		</tr>
+		<tr>
+			<td class="formname">Address:</td>
+			<td class="formfield"><textarea name="address" class="textarea" style="width: 315px;height:75px;"><?=$oAuthor->address?></textarea></td>
+		</tr>
+<?
+    if($_POST[submode]!="process_author"){
+?>
+		<tr>
+			<td class="formname">Is Contact Author:</td>
+			<td class="formfield"><input type="checkbox" name="is_contact" value="1" <?=($oAuthor->is_contact)?' checked':''?> /></td>
+		</tr>
+<?
+    }
+?>
+		<tr>
+			<td colspan="2" class="formfield" align="center"><input type="button" class="submit" name="cancel" value="Cancel" onclick="document.location='/paper.php?mode=paper_details&paper_id=<?=$oAuthor->paper_id?>';" />&nbsp;
+			<input type="submit" class="submit" name="update_author" value="Save" /></td>
+		</tr>
+	</table>
+</form>

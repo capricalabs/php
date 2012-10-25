@@ -1,0 +1,67 @@
+<?
+$oMedia = $myPM->oTemp;
+$cancel_redirect = ($_POST['is_published']) ? "/publish.php?mode=publish_details&paper_id=$oMedia->paper_id" : "/paper.php?mode=paper_details&paper_id=$oMedia->paper_id";
+?>
+<form enctype="multipart/form-data" action="/paper.php" method="POST">
+    <input type="hidden" name="mode" value="save_media">
+    <input type="hidden" name="paper_id" value="<?=$oMedia->paper_id?>">
+    <input type="hidden" name="media_item_id"  value="<?=$oMedia->media_item_id?>">
+    <input type="hidden" name="MAX_FILE_SIZE" value="5000000000" />
+    <input type="hidden" name="is_published" value="<?=($_POST['is_published'])?'1':'0'?>">
+    <table border="0" cellpadding="1" cellspacing="1" width="100%" class="summary-table">
+    	<tr>
+			<td class="editheader" colspan="2">Media Item <?=$oMedia->media_item_id?></td>
+		</tr>
+<?
+if(!$oMedia->media_item_id){
+?>
+		<tr>
+			<td class="formfield" colspan="2" align="center">Browse to a local file or enter a url path.</td>
+		</tr>
+<?
+}
+if($oMedia->file_ext){
+?>
+		<tr>
+			<td class="formname" nowrap>Attached File:</td>
+			<td class="formfield"><?=vAdmin::getFileInfo($oMedia)?></td>
+		</tr>
+<?
+}
+if(!$oMedia->document_url){
+?>
+		<tr>
+			<td class="formname">Upload file:</td>
+			<td class="formfield"><input name="fileupload" type="file" size="35"/></td>
+		</tr>
+<?
+}
+if(!$oMedia->file_ext){
+?>
+        <tr>
+            <td class="formname">Doc URL</td>
+            <td class="formfield"><input type="text" name="document_url" value="<?=$oMedia->document_url?>" style="width: 375px; height: 20px;"/></td>
+        </tr>
+<?
+}
+?>
+		<tr>
+		   <td class="formname">Is Public:</td>
+		   <td class="formfield"><input type="checkbox" name="is_public" value="1" <?=($oMedia->is_public)?' checked':''?>></td>
+		</tr>
+		<tr>
+		   <td class="formname">Media Type:</td>
+		   <td class="formfield"><select name="media_type_id">
+		                              <option value="">Select >></option>
+		                              <?=vAdmin::getMediaTypes($oMedia,false,$_POST['is_published'])?></select></td>
+		</tr>
+		<tr>
+			<td class="formname">Notes:</td>
+			<td class="formfield"><textarea name="notes" class="textareab"><?=$oMedia->notes?></textarea></td>
+		</tr>
+		<tr>
+		  <td colspan="2" class="formfield" align="center"><input type="button" class="submit" name="cancel" value="Cancel" onclick="document.location='<?=$cancel_redirect?>';" />
+		  <input type="submit" class="submit" value="Save File" /></td>
+		</tr>
+	</table>
+</form>

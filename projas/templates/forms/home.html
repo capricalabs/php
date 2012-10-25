@@ -1,0 +1,99 @@
+<table border="0" cellpadding="1" cellspacing="1" class="summary-table">
+    <tr>
+        <td class="editheader">Paper Home Page</td>
+    </tr>
+<?
+/*-- USER TYPE PERMISSIONS --*/
+if(cLogin::hasPermission()){ ?>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+               <tr>
+                <td align="left" width="200"><a href="/publish.php?mode=publish_process" class="paperlink">Process for Publishing:</a></td>
+                <td  align="center" width="100"><?=Submission::unprocessedExist(true)?></td>
+              </tr>
+         </table></td>
+    </tr>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+               <tr>
+                <td align="left" width="200"><a href="/paper.php?mode=process" class="paperlink">Process for Review</a>:</td>
+                <td  align="center" width="100"><?=Submission::unprocessedExist()?></td>
+              </tr>
+         </table></td>
+    </tr>
+<? } else {?>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+               <tr>
+                <td align="left" width="200"><a href="/paper.php?mode=summary&type=6" class="paperlink">My Papers</a>:</td>
+                <td  align="center" width="100"><?=Paper::getMyPapersCount()?></td>
+              </tr>
+         </table></td>
+    </tr>
+<? } ?>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+              <tr>
+                <td width="200" align="left" nowrap><a href="/paper.php?mode=summary&type=2" class="paperlink">All Papers</a>:</td>
+                <td  align="center" width="100"><?=Paper::getPaperCount()?></td>
+              </tr>
+         </table></td>
+    </tr>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+               <tr>
+                <td align="left" width="200"><a href="/paper.php?mode=summary&type=0" class="paperlink">Under Review</a>:</td>
+                <td  align="center" width="100"><?=Paper::getUnderReviewCount()?></td>
+              </tr>
+         </table></td>
+    </tr>
+    <tr>
+        <td class="main_admin">
+         <table cellpspacing="0" cellpadding="1" border="0">
+              <tr>
+                <td align="left" width="200"><a href="/paper.php?mode=summary&type=4" class="paperlink">Over Due</a>:</td>
+                <td  align="center" width="100"><?=Paper::getOverDueCount()?></td>
+              </tr>
+          </table></td>
+    </tr>
+     <tr>
+        <td>
+         <table cellpspacing="0" cellpadding="1" border="0" class="main_admin">
+              <tr>
+                <td align="left" width="200"><a href="/publish.php?mode=summary&type=1" class="paperlink">Published</a>:</td>
+                <td  align="center" width="100"><?=Paper::getPublishedCount()?></td>
+              </tr>
+          </table></td>
+    </tr>
+     <tr>
+        <td>
+         <table cellpspacing="0" cellpadding="1" border="0" class="main_admin">
+              <tr>
+                <td align="left" width="200"><a href="/other.php?mode=submissions" class="paperlink">Submissions</a>:</td>
+                <td  align="center" width="100"><?=Submission::getSubmissionCount()?></td>
+              </tr>
+          </table></td>
+    </tr>
+     <tr>
+        <td>
+         <table cellpspacing="0" cellpadding="1" border="0" class="main_admin">
+              <tr>
+                <td align="left" width="100%">Last Publication:</td>
+                <td  align="center" nowrap><?=vAdmin::formatDate(cPublish::getLastPublish(),true,true)?></td>
+              </tr>
+          </table></td>
+    </tr>
+     <tr>
+        <td>
+         <table cellpspacing="0" cellpadding="1" border="0">
+              <tr>
+                <td align="left" width="300">Active Users:<br><div align="center"><?=vAdmin::getActiveUsers()?></div></td>
+              </tr>
+          </table></td>
+    </tr>
+</table>

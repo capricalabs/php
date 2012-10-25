@@ -1,0 +1,70 @@
+<?
+/*-- set in submission controller --*/
+$oSubmission = $mySub->oSubmission;
+$oMedia = $mySub->oMedia;
+?>
+
+<form enctype="multipart/form-data" action="/submit.php" method="POST">
+    <input type="hidden" name="mode" value="edit_media">
+    <input type="hidden" name="submission_id" value="<?=$oSubmission->submission_id?>">
+    
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="summary-table">
+        <tr>
+            <td colspan="6" class="editheader">File Transfer</td>
+        </tr>
+    <?
+        if($_SESSION['submission_mode'] != "publish"){
+    ?>
+        <tr>
+            <td colspan="6" class="formfield">You can upload the paper, or give us a URL where our staff can find the file. You can also transfer any files we need for the reviewing process, such as online appendicies, a description of changes (for resubmissions), etc. If any file exceeds 10 megabytes in size, please email it to us. (We discourage submission of extremely large files, which are difficult for readers to download.) For each file you want to transfer to us, use the button below.</td>
+        </tr>
+    <?
+        } else {
+    ?>
+        <tr>
+            <td colspan="6" class="formfield">We have saved the information you have entered. You can now upload the paper, or give us a URL where our staff can find the file. You can also transfer any additional files we need for publication. For each file you want to transfer to us, use the button below.</td>
+        </tr>
+    <?
+        }
+        if(count($oSubmission->media)){
+    ?>
+        <tr>
+            <td class="editheader" align="center"><span class="bold">ID</span></td>
+            <td class="editheader" align="center"><span class="bold">File</span></td>
+            <td class="editheader" align="center"><span class="bold">Type</span></td>
+            <td class="editheader" align="center" nowrap><span class="bold">File Size</span></td>
+            <td class="editheader" align="center">&nbsp;</td>
+            <td class="editheader" align="center">&nbsp;</td>
+        </tr>
+    <?
+            $i=0;
+            foreach($oSubmission->media AS $oMedia){
+                $i++;
+                //$class = ($i % 2 == 1) ? 'editheader2': 'formfield';
+                $class = 'formfield';
+    ?>
+        <tr>
+            <td class="<?=$class?>"><?=$oMedia->media_item_id?></td>
+            <td class="<?=$class?>" align="center" width="100%"><?=vAdmin::getFileInfo($oMedia)?></td>
+            <td class="<?=$class?>" align="center" nowrap><?=Media::getMediaType($oMedia)?></td>
+            <td class="<?=$class?>" align="center"><?=($oMedia->file_size)?$oMedia->file_size:'0'?>kb</td>
+            <td class="<?=$class?>"><a href="/submit.php?mode=edit_media&media_item_id=<?=$oMedia->media_item_id?>&submission_id=<?=$oSubmission->submission_id?>" class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+            <td class="<?=$class?>"><a href="#" onClick="confirmAction('Permanently delete media item from system?','/submit.php?mode=delete_media&submission_id=<?=$oSubmission->submission_id?>&media_item_id=<?=$oMedia->media_item_id?>');" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+        </tr>
+    <?
+            }
+        } else {
+    ?>
+        <tr>
+            <td class="formfield" align="center" colspan="6"><span class="bold">No Files Specified</span></td>
+        </tr>
+    <?
+        }
+    ?>
+            <tr>
+                <td align="center" class="formfield" colspan="6"><input type="submit" class="submit" name="submit" value="Transfer File" />
+                <input type="submit" class="submit" name="submit" value="Finished Transferring Files &raquo;" onClick="this.form.mode.value='media_complete';return true;"/></td>
+            </tr>
+    </table>
+    <br>
+</form>

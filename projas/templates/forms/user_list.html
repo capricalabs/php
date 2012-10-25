@@ -1,0 +1,34 @@
+<?
+$oUsers = $myUser->oTemp;
+?>
+<table cellpadding="1" cellspacing="1" border="0" width="100%" class="summary-table">
+        <tr>
+            <td class="editheader">ID</td>
+            <td class="editheader">Username</td>
+            <td class="editheader">User Type</td>
+            <td class="editheader">Name</td>
+            <td class="editheader">Active</td>
+            <td class="editheader">Logged-in</td>
+            <td class="editheader">&nbsp;</td>
+            <td class="editheader">&nbsp;</td>
+        </tr>
+<?               
+    $i=0;
+    foreach($oUsers as $oUser){
+        $i++;
+        $class = ($i % 2 == 1) ? 'tile': 'formfield';
+?>
+        <tr>
+            <td class="<?=$class?>"><?=$oUser->user_id?></td>
+            <td class="<?=$class?>"><?=vAdmin::padString($oUser->username, 14)?></td>
+            <td class="<?=$class?>"><?=vAdmin::padString($oUser->user_type, 14)?></td>
+            <td class="<?=$class?>"><?=vAdmin::padString($oUser->first_name, 14)?> <?=vAdmin::padString($oUser->last_name, 14)?></td>
+            <td class="<?=$class?>" align="center"><?=($oUser->active)?'<span class="success">Yes</span>':'<span class="error">No</span>'?></td>
+            <td class="<?=$class?>"><?=vAdmin::formatDate($oUser->login_date,false,true,true)?></td>
+            <td class="<?=$class?>"><a href="/users.php?mode=edit_user&user_id=<?=$oUser->user_id?>" class="edit"><img src="/images/b_edit.gif" width="16" height="16" alt="Edit" border="0"></a></td>
+            <td class="<?=$class?>"><a href="#" onClick="confirmAction('Permanently delete user from system?','/users.php?mode=delete&user_id=<?=$oUser->user_id?>');" class="edit-delete"><img src="/images/b_drop.gif" width="16" height="16" border="0" alt="Delete"></a></td>
+        </tr>
+<?
+    }
+?>
+</table>

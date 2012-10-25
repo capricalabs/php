@@ -1,0 +1,17 @@
+<form name="assign_editor_form" action="/other.php" method="post">
+	<input type="hidden" name="paper_id" id="paper_id" value="<?=$_POST[paper_id]?>" />
+	<input type="hidden" name="mode" value="email">
+	<input type="hidden" name="action" value="edit">
+    <table cellspadding="0" cellspacing="1" border="0" width="100%" class="summary-table">
+        <tr>
+            <td class="editheader">Select E-mail</td>
+        </tr>
+        <tr>
+            <td class="formfield" align="center"><br><select name="email_id" size="6"><?=vAdmin::getEmails()?></select><br><br></td>
+        <tr>
+            <td class="formfield" align="center">
+                <input type="submit" class="submit" name="submit" value="Edit E-mail" />
+            </td>
+        </tr>
+    </table>
+</form>	

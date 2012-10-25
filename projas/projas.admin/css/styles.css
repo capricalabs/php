@@ -1,0 +1,265 @@
+body * {
+	font-family: Tahoma,Verdana, Geneva, Arial;
+	font-size: 12px;
+}
+
+td {
+	color: #000;
+	font-size: 14px;
+	line-height: 12px;
+}
+
+.table-error {
+    background-color: #FF9999;
+    border-color: #FF0000;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.table-success {
+    background-color: #D7F7E7;
+    border-color: #339966;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.summary-table {
+    border-color: #99CCCC;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.parent-table {
+    border-color: #99CCCC;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.detail-table {
+    border-color: #666666;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.leftcolumn {
+	background-color: #99CCCC;
+	padding: 10px;
+	vertical-align: top;
+}
+
+.small {
+    font-size: 10px;
+}
+
+.pagingresults {
+    font-size: 11px;
+}
+
+.bold { 
+    font-weight: bold; 
+}
+
+.title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.error
+{
+	color: red;
+	font-weight: normal; 
+}
+
+.error-message
+{
+	color: red;
+	font-weight: bold; 
+}
+
+.success-message
+{ 
+    color: #060;
+    font-weight: bold; 
+}
+
+.edit
+{
+	color: #0F4454;
+	font-weight: bold; 
+	font-size: 11px;
+}
+
+.e-mail
+{
+	color: #009;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.edit-delete
+{
+	color: red;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.success 
+{ 
+    color: #060;
+    font-weight: normal; 
+}
+
+.search {
+    color: white;
+	font-size: 12px;
+	font-weight: bold;
+}
+/* FORM ATTRIBUTES */
+
+input {
+    border-color: #003366;
+    border-width: 1px;
+    border-style: solid;
+}
+
+input.submit
+{
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+input.process
+{
+	color: red;
+	font-size: 12px;
+	font-weight: bold;
+	font-variant: small-caps;
+    text-decoration: blink; 
+}
+
+select {
+    border-color: #003366;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.formname {
+    font-weight: bold;
+	color: #003333;
+	background-color: #D8D8D8;
+	text-align: right;
+	padding: 2px;
+	font-size: 12px;
+}
+
+.formheader {
+	font-weight: bold;
+	color: #99CCCC;
+	background-color: #666666;
+	text-align: center;
+	padding: 1px;
+}
+
+.editheader {
+	font-weight: bold;
+	color: #000000;
+	background-color: #99CCCC;
+	text-align: center;
+	padding: 1px;
+}
+
+.reportheader {
+	color: #000000;
+	background-color: #99CCCC;
+	text-align: center;
+	padding: 1px;
+	font-size: 12px;
+}
+
+.paperlink {
+    font-weight: bold;
+	color: #000000;
+	padding: 2px;
+	font-size: 13px;
+}
+
+.tile2 {
+    background-color: #CAEBEB;
+    background-color: #DAF5F5;
+    padding: 2px;
+	font-size: 13px;
+}
+
+.tile {
+    background-color: #E8E8E8;
+    padding: 2px;
+	font-size: 13px;
+}
+
+.formfield {
+	background-color: #D8D8D8;
+	padding: 2px;
+	font-size: 13px;
+}
+
+.textarea{
+	border-color: #003366;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.textareab{
+	width: 375px;
+	height: 100px;
+	border-color: #003366;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.pagenum{
+    text-decoration: underline;
+    font-size: 12px;
+    color: #000000;
+}
+
+.pageactive{
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000000;
+}
+
+.paging{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 15px;
+    color: #194A5B;
+}
+
+.main_admin {border-bottom : 1px solid #CCCCCC;}
+
+fieldset
+{
+	background-color: #E8E8E8;
+	border-color: #000000;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+}
+
+legend{
+
+}
+
+.crumb
+{
+	color: #0F4454;
+	font-size: 12px;
+}
+
+.inactive
+{
+	color: #999999;
+	font-size: 12px;
+}
